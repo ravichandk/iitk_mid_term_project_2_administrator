@@ -16,17 +16,21 @@ pipeline {
             }
         }
 		stage('Deliver') { 
-            agent {
-                docker {
-                    image 'cdrx/pyinstaller-linux:python2'
-                }
+            agent any
+            environment { 
+                VOLUME = '$(pwd)/sources:/'
+                IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
-                sh 'pyinstaller --onefile administrator.py'
+                dir(path: env.BUILD_ID) { 
+                    unstash(name: 'compiled-results') 
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F administrator.py'" 
+                }
             }
             post {
                 success {
-                    archiveArtifacts 'dist/administrator'
+                    archiveArtifacts "${env.BUILD_ID}/dist/administrator" 
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
                 }
             }
         }
