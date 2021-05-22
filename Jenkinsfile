@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python -m py_compile administrator/calc.py' 
+                sh 'python -m py_compile administrator.py' 
                 stash(name: 'compiled-results', includes: '*.py*') 
             }
         }
