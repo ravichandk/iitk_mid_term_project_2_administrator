@@ -69,4 +69,4 @@ api.add_resource(health_record, '/health')
 api.add_resource(new_record, '/new')
 api.add_resource(get_all_records, '/getall')
 if __name__ == '__main__':
-        app.run(host='0.0.0.0', port=80,debug=False)
+        app.run(host='0.0.0.0', port=9090,debug=False)
