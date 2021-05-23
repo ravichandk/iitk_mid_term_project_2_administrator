@@ -1,11 +1,9 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from flask_restful import reqparse
-from flask_mysqldb import MySQL
+from flask_restful import reqparse 
 from flask_cors import CORS
 import boto3
 
-mysql = MySQL()
 app = Flask(__name__)
 
 
